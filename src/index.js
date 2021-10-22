@@ -15,6 +15,8 @@ const { MessageButton, MessageActionRow } = require('discord-buttons');
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
   await client.login(config.token);
+  client.user.setActivity(",help" ,{type: "WATCHING" , Status : "idle"}) 
+  
 })();
 
 mongoose.connect(dblogin)
