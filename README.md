@@ -3,11 +3,17 @@
 
 A Discord Bot For all sorts of things. Mainly focosed on Last.fm and music related things
 
+## invite
 
-  
+[Invite](https://discord.com/api/oauth2/authorize?client_id=847501807567503360&permissions=8&scope=bot)
+
 ## Usage
 
 The bot prefix is a comma (,) you can use ,help to get to the documentation
+
+##Docs
+- [The Docs](https://bdcgg.gitbook.io/bdc-docs/) are stil in development 
+
 ## Features
 
 - wide last.fm intergration
