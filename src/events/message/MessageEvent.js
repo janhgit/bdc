@@ -11,7 +11,9 @@ module.exports = class MessageEvent extends BaseEvent {
       const [cmdName, ...cmdArgs] = message.content
       .slice(client.prefix.length)
       .trim()
+      .toLowerCase()
       .split(/\s+/);
+      
       const command = client.commands.get(cmdName);
       if (command) {
         command.run(client, message, cmdArgs);
