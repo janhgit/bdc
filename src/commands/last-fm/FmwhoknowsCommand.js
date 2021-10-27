@@ -2,6 +2,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 const schema = require('../../db/login');
 const lfmconfig = require('./lfmconfig');
 const { default: axios } = require('axios');
+const set = new Set();
 
 module.exports = class FmwhoknowsCommand extends BaseCommand {
   constructor() {
@@ -20,20 +21,25 @@ module.exports = class FmwhoknowsCommand extends BaseCommand {
         fmnames += `${p[i].fmusername},`;
       }
       const test = fmnames.split(",")
-     let response = ``
+     
       for (let i = 0; i < test.length; i++) {
         const element = test[i];
+        let response = ``
         const request_url = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Frank%20Ocean&api_key=${lfmconfig.apikey}&username=${element}&format=json`
         axios
           .get(request_url)
           .then(res => {
             // console.log(element, ":", res.data.artist.stats.userplaycount)
-            response += `${i + 1}: **${element} - ${res.data.artist.stats.userplaycount}**\n`
+            response += ` **${element} - ${res.data.artist.stats.userplaycount}**`
+            
+            set.add(response);
 
           })
       }
+
+      console.log(set)
     });
-    console.log(response)
+    
 
 
 
