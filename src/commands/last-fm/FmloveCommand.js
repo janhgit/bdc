@@ -5,7 +5,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 const md5 = require('md5');
 module.exports = class FmloveCommand extends BaseCommand {
   constructor() {
-    super('fmlove', 'last-fm', []);
+    super('fmlove', 'last-fm', ['fml', "fmyeah", "fmfuck"]);//  s/o fmbot :kith:
   }
 
  async run(client, message, args) {

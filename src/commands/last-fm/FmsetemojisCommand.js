@@ -4,7 +4,7 @@ const lfmemoji = require('../../db/emote')
 const BaseCommand = require('../../utils/structures/BaseCommand');
 module.exports = class FmsetemojisCommand extends BaseCommand {
   constructor() {
-    super('fmsetemojis', 'last-fm', []);
+    super('fmsetemojis', 'last-fm', ['fmsetemote', 'fmreact']);
   }
 
   async run(client, message, args) {
@@ -21,7 +21,9 @@ module.exports = class FmsetemojisCommand extends BaseCommand {
     // const emote2 = `${args[0].split('>')[1]}>`
     const emote1 = args[0]
     const emote2 = args[1]
-    
+    if(emote2 == undefined ){
+      return message.channel.send("there was an error. Make sure the emotes are from a server the bot is in and the 2 emotes have a space between them.")
+    }
     lfmemoji.findByIdAndUpdate(message.author.id, { emoteOne: emote1, emoteTwo: emote2,}, { upsert: true })
     .then(res => {
       console.log(res)

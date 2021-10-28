@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const { Client } = require('discord.js');
+const dblogin = "mongodb+srv://admin:admin@bdc.xz08c.mongodb.net/bdc?retryWrites=true&w=majority"
 const { registerCommands, registerEvents } = require('./utils/registry');
 const config = require('../slappey.json');
 const client = new Client();
