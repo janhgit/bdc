@@ -56,7 +56,7 @@ module.exports = class FmnpCommand extends BaseCommand {
             const playount = res.data.recenttracks['@attr'].total
             let love = ``
             if (items.loved > 0) {
-              love = "|❤️Loved Track"
+              love = "|💞Loved Track"
             } else {
               love = ""
             }

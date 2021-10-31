@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.6.0",
     "axios": "^0.22.0",
     "disconnect": "^1.2.2",
     "discord-buttons": "^4.0.0",
@@ -23,7 +24,9 @@
     "mongoose": "^6.0.9",
     "nvm": "^0.0.4",
     "promise-retry": "^2.0.1",
+    "qs": "^6.10.1",
     "randomstring": "^1.2.1",
+    "spotify-web-api-node": "^5.0.2",
     "yt-search": "^2.10.2",
     "ytdl-core": "^4.9.1"
   },

@@ -4,13 +4,12 @@ const lfmconfig = require('./lfmconfig');
 const { default: axios } = require('axios');
 const discord = require('discord.js');
 const client = new discord.Client();
-const disbut = require('discord.js-buttons')(client);
+const disbut = require('discord.js-buttons')
 const randomstring = require('randomstring')
 
-
-module.exports = class FmtopartistsCommand extends BaseCommand {
+module.exports = class FmtoptracksCommand extends BaseCommand {
   constructor() {
-    super('fmtopartists', 'last-fm', ['fmta']);
+    super('fmtoptracks', 'last-fm', []);
   }
 
   run(client, message, args) {
@@ -41,7 +40,7 @@ module.exports = class FmtopartistsCommand extends BaseCommand {
             embed: {
               color: '36393F',
               author: {
-                name: `FM Top Artist Help`,
+                name: `FM Top Tracks Help`,
               },
               description: "valid timeperiods are:\n **7day\n 1month\n 3month\n 6month\n 12month\n overall\n** ",
             }
@@ -51,22 +50,25 @@ module.exports = class FmtopartistsCommand extends BaseCommand {
 
 
         const fmusername = res.fmusername
-        const request_url = `http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${fmusername}&period=${period}&api_key=${lfmconfig.apikey}&limit=10&format=json`
+        const request_url = `http://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=${fmusername}&period=${period}&api_key=${lfmconfig.apikey}&limit=10&format=json`
         let response = ``
         axios
           .get(request_url)
           .then((res) => {
-            for (let i = 0; i < res.data.topartists.artist.length; i++) {
-              const base = res.data.topartists.artist[i]
+            const image =res.data.toptracks.track[0].image[3]['#text']
+            for (let i = 0; i < res.data.toptracks.track.length; i++) {
+              const base = res.data.toptracks.track[i]
               const items = {
                 name: base.name,
                 playcount: base.playcount,
                 rank: base['@attr'].rank,
-                url: base.url
+                url: base.url,
+                artist: base.artist.name,
+                
 
               }
               // console.log(items)
-              response += `${items.rank} : **[${items.name}](${items.url})** - *_${items.playcount}_*\n `
+              response += `${items.rank} : **[${items.name}](${items.url})** - **${items.artist}** - _${items.playcount}_\n `
             }
             let button = new disbut.MessageButton()
               .setStyle('blurple') //default: blurple
@@ -81,13 +83,17 @@ module.exports = class FmtopartistsCommand extends BaseCommand {
               embed: {
                 color: '36393F',
                 author: {
-                  name: `Top Artists - ${username.username}`,
+                  name: `Top Tracks - ${username.username}`,
                   url: `https://www.last.fm/user/${fmusername}`,
                   icon_url: avatar
                 },
+                
                 description: response,
+                thumbnail: {
+                  url: image
+                },
                 footer: {
-                  text: ` These are the top artists for ${period}`,
+                  text: ` These are the top Tracks for ${period}`,
 
                 },
               },
@@ -102,36 +108,44 @@ module.exports = class FmtopartistsCommand extends BaseCommand {
                     a++
 
 
-                    const request_two = `http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${fmusername}&period=${period}&limit=10&page=${a}&api_key=${lfmconfig.apikey}&format=json`
+                    const request_two = `http://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=${fmusername}&period=${period}&limit=10&page=${a}&api_key=${lfmconfig.apikey}&format=json`
                     console.log(a)
                     console.log(request_two)
                     axios
                       .get(request_two)
                       .then((result) => {
-
+                        const image =res.data.toptracks.track[0].image[3]['#text']
+                        console.log(image)
                         for (let i = 0; i < 10; i++) {
-                          const base = result.data.topartists.artist[i]
+                          const base = result.data.toptracks.track[i]
+                          
+                          
                           const items = {
                             name: base.name,
                             playcount: base.playcount,
                             rank: base['@attr'].rank,
+                            artist: base.artist.name,
                             url: base.url
+                            
                           }
                           // console.log(items)
-                          response_two += `${items.rank} : **[${items.name}](${items.url})** - **_${items.playcount}_**\n `
+                          response_two += `${items.rank} : **[${items.name}](${items.url})** - **${items.artist}** - _${items.playcount}_\n `
                           
                         }
                         message.edit({
                           embed: {
                             color: '36393F',
                             author: {
-                              name: `Top Artists - ${username.username}`,
+                              name: `Top Tracks - ${username.username}`,
                               url: `https://www.last.fm/user/${fmusername}`,
                               icon_url: avatar
                             },
                             description: response_two,
+                            thumbnail: {
+                              url: image
+                            },
                             footer: {
-                              text: ` These are the top artists for ${period}`,
+                              text: ` These are the top Tracks for ${period}`,
 
                             },
 
@@ -150,4 +164,3 @@ module.exports = class FmtopartistsCommand extends BaseCommand {
       })
   }
 }
-

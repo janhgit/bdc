@@ -7,7 +7,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 const randomstring = require('randomstring')
 module.exports = class FmlovedtracksCommand extends BaseCommand {
   constructor() {
-    super('fmlovedtracks', 'last-fm', []);
+    super('fmlovedtracks', 'last-fm', ['fmlove  d']);
   }
 
   async run(client, message, args) {
@@ -52,6 +52,7 @@ module.exports = class FmlovedtracksCommand extends BaseCommand {
               .setID(id) //note: if you use the style "url" you must provide url using .setURL('https://example.com')
             let member = message.mentions.users.first() || message.author
             let avatar = member.displayAvatarURL({ dynamic: true })
+            
             message.channel.send({
               embed: {
                 color: '36393F',

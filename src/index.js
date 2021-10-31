@@ -1,11 +1,11 @@
 const mongoose = require("mongoose")
 const { Client } = require('discord.js');
-const dblogin = "mongodb+srv://admin:admin@bdc.xz08c.mongodb.net/bdc?retryWrites=true&w=majority"
-const { registerCommands, registerEvents } = require('./utils/registry');
 const config = require('../slappey.json');
+const dblogin = config.db
+const { registerCommands, registerEvents } = require('./utils/registry');
 const client = new Client();
 const DisTube = require('distube')
-// client.distube = new DisTube(client, { searchSongs: false, emitNewSongOnly: true, leaveOnFinish: false })
+// distube = new DisTube(client, { searchSongs: false, emitNewSongOnly: true, leaveOnFinish: false })
 require('discord-buttons')(client);
 const disbut = require('discord-buttons');
 const { MessageButton, MessageActionRow } = require('discord-buttons');
@@ -19,7 +19,7 @@ const { MessageButton, MessageActionRow } = require('discord-buttons');
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
   await client.login(config.token);
-  client.user.setActivity(",help" ,{type: "WATCHING" , Status : "idle"}) 
+  client.user.setActivity(",help | ,invite" ,{type: "LISTENING" , Status : "dnd"}) 
   
 })();
 

@@ -2,7 +2,8 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 const schema = require('../../db/login');
 const lfmconfig = require('./lfmconfig');
 const { default: axios } = require('axios');
-const set = new Set();
+const fs = require('fs')
+
 
 module.exports = class FmwhoknowsCommand extends BaseCommand {
   constructor() {
@@ -15,13 +16,13 @@ module.exports = class FmwhoknowsCommand extends BaseCommand {
     const Members = Guild.members.cache.map(member => member.id); // Getting the members and mapping them by ID.
     let fmnames = ``
     let GuildUserIds = ``
-   
+
     schema.find({ _id: Members }, "fmusername").then((p) => {
       for (let i = 0; i < p.length; i++) {
         fmnames += `${p[i].fmusername},`;
       }
       const test = fmnames.split(",")
-     
+
       for (let i = 0; i < test.length; i++) {
         const element = test[i];
         let response = ``
@@ -31,15 +32,22 @@ module.exports = class FmwhoknowsCommand extends BaseCommand {
           .then(res => {
             // console.log(element, ":", res.data.artist.stats.userplaycount)
             response += ` **${element} - ${res.data.artist.stats.userplaycount}**`
-            
-            set.add(response);
+            console.log(response)
 
+            var currentSearchResult = 'example'
+            const data = res.data
+            // fs.readFile('obects.json', function (err, data) {
+            //   var json = JSON.parse(data)
+            //   json.push('search result: ' + currentSearchResult)
+
+            //   fs.writeFile("obects.json", JSON.stringify(json))
+            // })
           })
       }
 
-      console.log(set)
+
     });
-    
+
 
 
 
