@@ -7,11 +7,12 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 const randomstring = require('randomstring')
 module.exports = class FmlovedtracksCommand extends BaseCommand {
   constructor() {
-    super('fmlovedtracks', 'last-fm', ['fmlove  d']);
+    super('fmlovedtracks', 'last-fm', ['fmloved']);
   }
 
   async run(client, message, args) {
-    const id = randomstring.generate(5)
+    const id = randomstring.generate(5)    
+    const id2 = randomstring.generate(5)
     const username = message.mentions.users.first() || message.author
     loginschema.findById(username.id)
       .then(res => {
@@ -50,6 +51,10 @@ module.exports = class FmlovedtracksCommand extends BaseCommand {
               .setStyle('blurple') //default: blurple
               .setLabel('>') //default: NO_LABEL_PROVIDED
               .setID(id) //note: if you use the style "url" you must provide url using .setURL('https://example.com')
+              let button2 = new disbut.MessageButton()
+              .setStyle('blurple') //default: blurple
+              .setLabel('<') //default: NO_LABEL_PROVIDED
+              .setID(id2) //note: if you use the style "url" you must provide url using .setURL('https://example.com')
             let member = message.mentions.users.first() || message.author
             let avatar = member.displayAvatarURL({ dynamic: true })
             
@@ -67,7 +72,9 @@ module.exports = class FmlovedtracksCommand extends BaseCommand {
                 },
 
               },
-              button
+              buttons: [
+                button2, button
+              ]
             })
 
 
@@ -79,6 +86,52 @@ module.exports = class FmlovedtracksCommand extends BaseCommand {
                 if (button.id === id) {
                   a++
                   p++
+                  const request_two = `http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user=${fmusername}&limit=15&page=${a}&api_key=${lfmconfig.apikey}&format=json`
+                  console.log(a)
+               
+              
+                  axios
+                    .get(request_two)
+                    .then((result) => {
+
+                      for (let i = 0; i < 15; i++) {
+                       
+                        const test = result.data.lovedtracks.track[i];
+                        const items = {
+                          name: test.name,
+                          artist: test.artist.name,
+                          url: test.url
+                        }
+                        
+                        response_two += ` **[${items.name}](${items.url})** - *${items.artist}*\n `
+                      }
+                      message.edit({
+                        embed: {
+                          color: '36393F',
+                          author: {
+                            name: `Loved Tracks - ${username.username}`,
+                            url: `https://www.last.fm/user/${fmusername}`,
+                            icon_url: avatar
+                          },
+                          description: response_two,
+                          footer: {
+                            text: `${fmusername} has ${attr.total} loved tracks | page: ${p}/${attr.totalPages}`,
+
+                          },
+
+                        },
+                      })
+                     
+                    })
+                    response_two = ``
+                }
+
+
+              });
+              client.on('clickButton', async (button2) => {
+                if (button2.id === id2) {
+                  a--
+                  p--
                   const request_two = `http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user=${fmusername}&limit=15&page=${a}&api_key=${lfmconfig.apikey}&format=json`
                   console.log(a)
                

@@ -36,6 +36,10 @@ module.exports = class FmloginCommand extends BaseCommand {
             color: '36393F',
             // title: `Click here to login `,
             url: RequestAuthorization,
+            author:{
+              name: "LOGIN",
+              url : "https://i.imgur.com/Y67Kt3T.jpg" 
+            },
             description: `**First please click the grey button. __After__ you logged in on the last.fm Webiste please click the green button **`,
             timestamp: Date.now()
           },

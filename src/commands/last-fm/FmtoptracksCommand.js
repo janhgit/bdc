@@ -9,7 +9,7 @@ const randomstring = require('randomstring')
 
 module.exports = class FmtoptracksCommand extends BaseCommand {
   constructor() {
-    super('fmtoptracks', 'last-fm', []);
+    super('fmtoptracks', 'last-fm', ['fmtt']);
   }
 
   run(client, message, args) {
@@ -46,7 +46,7 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
             }
           })
         }
-       
+
 
 
         const fmusername = res.fmusername
@@ -55,7 +55,7 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
         axios
           .get(request_url)
           .then((res) => {
-            const image =res.data.toptracks.track[0].image[3]['#text']
+            const image = res.data.toptracks.track[0].image[3]['#text']
             for (let i = 0; i < res.data.toptracks.track.length; i++) {
               const base = res.data.toptracks.track[i]
               const items = {
@@ -64,7 +64,7 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
                 rank: base['@attr'].rank,
                 url: base.url,
                 artist: base.artist.name,
-                
+
 
               }
               // console.log(items)
@@ -74,9 +74,6 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
               .setStyle('blurple') //default: blurple
               .setLabel('>') //default: NO_LABEL_PROVIDED
               .setID(id) //note: if you use the style "url" you must provide url using .setURL('https://example.com')
-             
-
-            
             let member = message.mentions.users.first() || message.author
             let avatar = member.displayAvatarURL({ dynamic: true })
             message.channel.send({
@@ -87,7 +84,7 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
                   url: `https://www.last.fm/user/${fmusername}`,
                   icon_url: avatar
                 },
-                
+
                 description: response,
                 thumbnail: {
                   url: image
@@ -104,33 +101,30 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
                 let a = 1
                 client.on('clickButton', async (button) => {
                   if (button.id === id) {
-
                     a++
-
-
                     const request_two = `http://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=${fmusername}&period=${period}&limit=10&page=${a}&api_key=${lfmconfig.apikey}&format=json`
                     console.log(a)
                     console.log(request_two)
                     axios
                       .get(request_two)
                       .then((result) => {
-                        const image =res.data.toptracks.track[0].image[3]['#text']
+                        const image = res.data.toptracks.track[0].image[3]['#text']
                         console.log(image)
                         for (let i = 0; i < 10; i++) {
                           const base = result.data.toptracks.track[i]
-                          
-                          
+
+
                           const items = {
                             name: base.name,
                             playcount: base.playcount,
                             rank: base['@attr'].rank,
                             artist: base.artist.name,
                             url: base.url
-                            
+
                           }
                           // console.log(items)
                           response_two += `${items.rank} : **[${items.name}](${items.url})** - **${items.artist}** - _${items.playcount}_\n `
-                          
+
                         }
                         message.edit({
                           embed: {

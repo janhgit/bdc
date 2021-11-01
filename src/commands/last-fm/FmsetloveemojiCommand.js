@@ -2,7 +2,7 @@ const schema = require('../../db/loveemote')
 const BaseCommand = require('../../utils/structures/BaseCommand');
 module.exports = class FmsetloveemojiCommand extends BaseCommand {
   constructor() {
-    super('fmsetloveemoji', 'last-fm', []);
+    super('fmsetloveemoji', 'last-fm', ['fmsle']);
   }
 
   run(client, message, args) {
@@ -17,7 +17,7 @@ module.exports = class FmsetloveemojiCommand extends BaseCommand {
     schema.findByIdAndUpdate(message.author.id, { emote: emote}, { upsert: true })
     .then(result => {
       console.log(result);
-      message.channel.send("sucess")
+      message.channel.send("success")
     })
     }
   }
