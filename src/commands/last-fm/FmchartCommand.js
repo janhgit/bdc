@@ -50,8 +50,8 @@ module.exports = class FmchartCommand extends BaseCommand {
         }})
       }
       
-      const img_url = `https://www.tapmusic.net/collage.php?user=${fmname}&type=${period}&size=3x3&caption=true&playcount=true`
-      // const pic = new MessageAttachment(`https://lastfm-collage.herokuapp.com/collage?username=${fmname}&method=album&period=${period}&column=3&row=3&caption=true&scrobble=true`)
+      // const img_url = `https://www.tapmusic.net/collage.php?user=${fmname}&type=${period}&size=3x3&caption=true&playcount=true`
+      const img_url = (`https://lastfm-collage.herokuapp.com/collage?username=${fmname}&method=album&period=${period}&column=3&row=3&caption=true&scrobble=true`)
      const embed = new MessageEmbed()
 
      .setImage(img_url)

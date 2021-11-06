@@ -53,22 +53,26 @@ module.exports = class FmnpCommand extends BaseCommand {
               artist: resbase.artist.name,
               album: resbase.album['#text']
             }
+            module.exports = { items, fmusername }
+            const callTrack = require('./modules/CallTrackCount')
+console.log(calltrack)
+
             let love = ``
             message.channel.stopTyping();
             loveschema.findById(username.id)
               .then((r) => {
-
+                const call = require('./modules/CallTrackCount')
+                call
                 if (items.loved > 0) {
-                  if(!r){
-                    console.log("loved and no emoji set")
+                  if (!r) {
                     love = "|💞 Loved track"
                   }
-                  if(r){
+                  if (r) {
                     love = `| ${r.emote} Loved track`
-                    
+
                   }
                 }
-                else{
+                else {
                   love = ""
                 }
                 const playount = res.data.recenttracks['@attr'].total

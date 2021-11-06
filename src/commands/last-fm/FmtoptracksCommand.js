@@ -86,9 +86,7 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
                 },
 
                 description: response,
-                thumbnail: {
-                  url: image
-                },
+                
                 footer: {
                   text: ` These are the top Tracks for ${period}`,
 
@@ -135,9 +133,7 @@ module.exports = class FmtoptracksCommand extends BaseCommand {
                               icon_url: avatar
                             },
                             description: response_two,
-                            thumbnail: {
-                              url: image
-                            },
+                          
                             footer: {
                               text: ` These are the top Tracks for ${period}`,
 

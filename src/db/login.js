@@ -14,6 +14,9 @@ const lfmLoginSchema = new Schema({
         type: "string",
         required: true,
     },
+    track: {
+        type: "string",
+    },
 },{timestamps: true })
 
 const lfmlogin = mongoose.model('lfm', lfmLoginSchema)
