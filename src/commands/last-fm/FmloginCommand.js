@@ -30,7 +30,7 @@ module.exports = class FmloginCommand extends BaseCommand {
           .setLabel('Click me to login') //default: NO_LABEL_PROVIDED
           .setID(id) //note: if you use the style "url" you must provide url using .setURL('https://example.com')
           .setURL(RequestAuthorization)
-
+        message.reply(`check your DM's!`)
         client.users.cache.get(message.author.id).send({
           embed: {
             color: '36393F',

@@ -14,7 +14,7 @@ module.exports = class KickCommand extends BaseCommand {
     if (!reason) reason = 'No Reason Given';
     if (!member.kickable) return message.reply('This member is not kickable')
 
-    member.kick(reason)
+    member.kick(reason + ` |Kicked by ${message.author.username}`)
     .then((r) => message.reply(":thumbsup:"))
     .catch(err => console.log(err));
   }
