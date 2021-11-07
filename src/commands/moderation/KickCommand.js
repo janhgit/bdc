@@ -6,6 +6,16 @@ module.exports = class KickCommand extends BaseCommand {
   }
 
   run(client, message, args) {
-    message.channel.send('kick command works');
+    if (!message.member.hasPermission('KICK_MEMBERS')) return message.reply('You cannot kick members')
+
+    let member = message.mentions.members.first()
+    if (!member) return message.reply('Please specify a member for me to kick them')
+    let reason = args.slice(1).join(" ");
+    if (!reason) reason = 'No Reason Given';
+    if (!member.kickable) return message.reply('This member is not kickable')
+
+    member.kick(reason)
+    .then((r) => message.reply(":thumbsup:"))
+    .catch(err => console.log(err));
   }
 }
