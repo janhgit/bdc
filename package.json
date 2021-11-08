@@ -21,6 +21,7 @@
     "distube": "^3.0.1",
     "fs": "^0.0.1-security",
     "md5": "^2.3.0",
+    "moment": "^2.29.1",
     "mongoose": "^6.0.9",
     "nvm": "^0.0.4",
     "promise-retry": "^2.0.1",
