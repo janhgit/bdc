@@ -1,4 +1,4 @@
-const axios = require("axios")
+  const axios = require("axios")
 const BaseCommand = require('../../utils/structures/BaseCommand');
 const loginschema = require('../../db/login');
 const lfmconfig = require('./lfmconfig')
