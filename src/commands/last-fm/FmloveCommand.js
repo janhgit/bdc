@@ -59,11 +59,11 @@ module.exports = class FmloveCommand extends BaseCommand {
                     const album = r.data.album.name
                     let member = message.mentions.users.first() || message.author
                     let avatar = member.displayAvatarURL({ dynamic: true })
-                    return message.channel.send({
+                     message.channel.send({
                       embed: {
                         color: "77C66E",
-                      title: `**${res.name} \n**${res.artist}**  **`,
-                        description :  `_${album}_`,
+                      title: `**${res.name}  **`,
+                      description: `_${res.artist}_ `,
                         author: {
                           name: `Loved track 💞 - ${username.username}`,
                           url: `https://www.last.fm/user/${fmusername}`,
@@ -72,9 +72,14 @@ module.exports = class FmloveCommand extends BaseCommand {
                         thumbnail: {
                           url:image
                         },
+                        
                         // timestamp: Date.now()
                       }
                     })
+                    .then(function (message) {
+                      message.react("💞")
+                    })
+                    return;
                   })
 
               })
